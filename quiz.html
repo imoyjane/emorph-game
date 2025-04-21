@@ -1,0 +1,205 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Word Formation Quiz</title>
+  <style>
+    body {
+      font-family: 'Arial Rounded MT Bold', sans-serif;
+      background: #ffe6f0;
+      color: #333;
+      margin: 0;
+      padding: 2rem;
+      text-align: center;
+    }
+    .quiz-container {
+      max-width: 800px;
+      margin: auto;
+      background: #fff0f5;
+      border: 3px solid #ffcce0;
+      border-radius: 20px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+      padding: 2rem;
+    }
+    h1 {
+      color: #d63384;
+    }
+    .question {
+      margin: 1.5rem 0;
+      background: #fff;
+      padding: 1rem;
+      border-radius: 15px;
+      border: 2px dashed #ffb6c1;
+    }
+    button {
+      margin-top: 2rem;
+      padding: 1rem 2rem;
+      background-color: #ff99cc;
+      border: none;
+      border-radius: 25px;
+      color: white;
+      font-size: 1rem;
+      cursor: pointer;
+    }
+    .ribbon {
+      position: absolute;
+      top: -10px;
+      right: -10px;
+      background: pink;
+      color: #fff;
+      padding: 5px 15px;
+      transform: rotate(45deg);
+      font-weight: bold;
+    }
+    .result {
+      margin-top: 1.5rem;
+      font-size: 1.2rem;
+      color: #cc3366;
+      font-weight: bold;
+    }
+    .correct { color: green; }
+    .wrong { color: red; }
+  </style>
+</head>
+<body>
+  <div class="quiz-container">
+    <div class="ribbon">Quiz</div>
+    <h1>Word Formation Quiz</h1>
+    <form id="quizForm"></form>
+    <button onclick="submitQuiz()">Submit</button>
+    <div class="result" id="result"></div>
+  </div>
+  <script>
+    const questions = [
+      {
+        question: "The term 'brunch' is a combination of 'breakfast' and 'lunch'. What type of word formation is used?",
+        options: ["Compounding", "Blending", "Coinage", "Reduplication"],
+        answer: "Blending"
+      },
+      {
+        question: "The word 'laser' stands for 'Light Amplification by Stimulated Emission of Radiation'. What process is this?",
+        options: ["Acronym", "Clipping", "Compounding", "Blending"],
+        answer: "Acronym"
+      },
+      {
+        question: "The word 'blog' comes from 'web log', merged together. What is this process called?",
+        options: ["Blending", "Borrowing", "Coinage", "Acronym"],
+        answer: "Blending"
+      },
+      {
+        question: "The abbreviation 'TV' comes from 'television' by shortening it. What type of process is this?",
+        options: ["Coinage", "Blending", "Acronym", "Clipping"],
+        answer: "Clipping"
+      },
+      {
+        question: "The word 'smog' comes from blending 'smoke' and 'fog'. What is this word formation?",
+        options: ["Clipping", "Acronym", "Blending", "Coinage"],
+        answer: "Blending"
+      },
+      {
+        question: "The term 'flu' is a shortened form of 'influenza'. What kind of formation is this?",
+        options: ["Reduplication", "Coinage", "Clipping", "Compounding"],
+        answer: "Clipping"
+      },
+      {
+        question: "The word 'motel' comes from 'motor' and 'hotel' blended together. What is this process?",
+        options: ["Coinage", "Blending", "Clipping", "Reduplication"],
+        answer: "Blending"
+      },
+      {
+        question: "The word 'scuba' comes from 'Self-Contained Underwater Breathing Apparatus'. What is this process?",
+        options: ["Borrowing", "Blending", "Acronym", "Coinage"],
+        answer: "Acronym"
+      },
+      {
+        question: "The repetition in the word 'tick-tock' mimics sound. What type of formation is this?",
+        options: ["Clipping", "Reduplication", "Coinage", "Blending"],
+        answer: "Reduplication"
+      },
+      {
+        question: "The term 'xerox' (used generically to mean 'photocopy') originated from a brand name. What process is this?",
+        options: ["Coinage", "Clipping", "Blending", "Acronym"],
+        answer: "Coinage"
+      },
+      {
+        question: "What type of word formation is used in the word 'brunch'?",
+        options: ["Compounding", "Blending", "Coinage", "Reduplication"],
+        answer: "Blending"
+      },
+      {
+        question: "The word 'laser' is formed by which process?",
+        options: ["Acronym", "Clipping", "Compounding", "Blending"],
+        answer: "Acronym"
+      },
+      {
+        question: "Which process is used to form the word 'blog'?",
+        options: ["Blending", "Borrowing", "Coinage", "Acronym"],
+        answer: "Blending"
+      },
+      {
+        question: "What kind of word formation is used in 'TV'?",
+        options: ["Coinage", "Blending", "Acronym", "Clipping"],
+        answer: "Clipping"
+      },
+      {
+        question: "The word 'smog' is an example of:",
+        options: ["Clipping", "Acronym", "Blending", "Coinage"],
+        answer: "Blending"
+      },
+      {
+        question: "Which type of word formation is demonstrated by 'flu'?",
+        options: ["Reduplication", "Coinage", "Clipping", "Compounding"],
+        answer: "Clipping"
+      },
+      {
+        question: "The word 'motel' is an example of:",
+        options: ["Coinage", "Blending", "Clipping", "Reduplication"],
+        answer: "Blending"
+      },
+      {
+        question: "What word formation process is used in 'scuba'?",
+        options: ["Borrowing", "Blending", "Acronym", "Coinage"],
+        answer: "Acronym"
+      },
+      {
+        question: "The repetition in the word 'tick-tock' shows an example of:",
+        options: ["Clipping", "Reduplication", "Coinage", "Blending"],
+        answer: "Reduplication"
+      },
+      {
+        question: "The term 'xerox' originated from a brand name. What process is this?",
+        options: ["Coinage", "Clipping", "Blending", "Acronym"],
+        answer: "Coinage"
+      }
+    ];
+    const form = document.getElementById('quizForm');
+    questions.forEach((q, i) => {
+      const div = document.createElement('div');
+      div.className = 'question';
+      div.innerHTML = `<p><strong>Q${i + 1}. ${q.question}</strong></p>` +
+        q.options.map(opt => `
+          <label><input type="radio" name="q${i}" value="${opt}"> ${opt}</label><br>
+        `).join('');
+      form.appendChild(div);
+    });
+    function submitQuiz() {
+      let score = 0;
+      const resultDiv = document.getElementById('result');
+      resultDiv.innerHTML = '';
+      questions.forEach((q, i) => {
+        const userAnswer = document.querySelector(`input[name="q${i}"]:checked`);
+        if (userAnswer) {
+          const isCorrect = userAnswer.value === q.answer;
+          if (isCorrect) score++;
+          resultDiv.innerHTML += `<p>Q${i + 1}: <span class="${isCorrect ? 'correct' : 'wrong'}">${isCorrect ? 'Correct' : 'Wrong'} (Answer: ${q.answer})</span></p>`;
+        } else {
+          resultDiv.innerHTML += `<p>Q${i + 1}: <span class="wrong">No answer (Answer: ${q.answer})</span></p>`;
+        }
+      });
+      resultDiv.innerHTML += `<p>Your final score: ${score} out of ${questions.length}</p>`;
+    }
+  </script>
+</body>
+</html>
